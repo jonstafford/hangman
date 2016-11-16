@@ -5,11 +5,17 @@ class Game
   @@blank = "_"
   @@guesses_limit = 10
   
+  attr_accessor :started
+  
   def initialize word
     @word = word
     @bad_guesses = []
     @board = Array.new(word.length) { |index| @@blank }
-    @started = DateTime.new
+    @started = DateTime.now
+  end
+  
+  def to_s
+    "#{@word.length} character word, bad guesses #{@bad_guesses}, board #{@board}"
   end
   
   def wins?
@@ -38,7 +44,7 @@ class Game
       end
     else
       str[str.length] = "Try guessing a character in the hidden word."
-      str[str.length] = "You have #{@@guesses_limit - @bad_guesses.length} remaining."
+      str[str.length] = "You have #{@@guesses_limit - @bad_guesses.length} guesses remaining."
       
     end
     
